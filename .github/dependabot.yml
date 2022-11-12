@@ -1,0 +1,9 @@
+# Dependabot
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/about-dependabot-version-updates
+
+version: 2.0
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
