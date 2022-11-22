@@ -11,7 +11,7 @@ repos:
       - id: check-symlinks
 
   - repo: https://github.com/bridgecrewio/checkov.git
-    rev: 2.2.44
+    rev: 2.2.82
     hooks:
       - id: checkov
         verbose: true
