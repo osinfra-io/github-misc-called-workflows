@@ -1,0 +1,37 @@
+name: Add To GitHub Projects
+
+on:
+  workflow_call:
+    inputs:
+      project_id:
+        description: Project ID found in the URL
+        required: true
+        type: number
+      project_name:
+        description: Project name
+        required: true
+        type: string
+
+    secrets:
+      add_to_projects_pat:
+        description: The GitHub token with access to the projects
+        required: true
+
+jobs:
+  add-to-project:
+    permissions:
+      issues: write
+      pull-requests: write
+
+    name: Add To GitHub Projects
+    runs-on: ubuntu-latest
+
+    steps:
+      # Add To GitHub Projects
+      # https://github.com/marketplace/actions/add-to-github-projects
+
+      - name: Add To GitHub IaC ${{ inputs.project_name }} Project
+        uses: actions/add-to-project@v0.4.0
+        with:
+          project-url: https://github.com/orgs/osinfra-io/projects/${{ inputs.project_id }}
+          github-token: ${{ secrets.add_to_projects_pat }}
