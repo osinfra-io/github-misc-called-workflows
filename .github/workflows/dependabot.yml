@@ -3,8 +3,8 @@ name: Dependabot
 on:
   workflow_call:
     secrets:
-      github_token:
-        description: 'GitHub token'
+      dependabot_token:
+        description: The GitHub token with access to the repository
         required: true
 
 permissions:
@@ -25,7 +25,7 @@ jobs:
         id: dependabot-metadata
         uses: dependabot/fetch-metadata@v1.3.5
         with:
-          github-token: "${{ secrets.github_token }}"
+          github-token: "${{ secrets.dependabot_token }}"
 
       # GitHub command line
       # https://cli.github.com
@@ -34,11 +34,11 @@ jobs:
         run: gh pr review --approve "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          github-token: "${{ secrets.github_token }}"
+          github-token: "${{ secrets.dependabot_token }}"
 
       - name: Run step gh pr merge --auto --squash
         if: ${{ steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          github-token: "${{ secrets.github_token }}"
+          github-token: "${{ secrets.dependabot_token }}"
