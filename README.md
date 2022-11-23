@@ -11,21 +11,45 @@ be centrally maintained.
 
 Rather than copying and pasting from one workflow to another, you can make workflows [reusable](https://docs.github.com/en/actions/learn-github-actions/reusing-workflows). You and anyone with access to the reusable workflow can then call the reusable workflow from another workflow.
 
-### Example Usage
+### Workflows
+
+- [add-to-project.yml](.github/workflows/add-to-project.yml)
+- [dependabot.yml](.github/workflows/dependabot.yml)
+
+### Example Add to Project Usage
+
+```yaml
+name: Add To GitHub Projects
+
+on:
+  issues:
+    types:
+      - opened
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  add-to-osinfra-project:
+    name: Open Source Infrastructure (as Code)
+    uses: osinfra-io/github-misc-called-workflows/.github/workflows/add-to-project.yml@v0.0.0
+    with:
+     project_id: 1
+    secrets:
+     add_to_project_pat: ${{ secrets.ADD_TO_PROJECT_PAT }}
+```
+
+### Example Dependabot Usage
 
 ```yaml
 name: Dependabot
 
 on: pull_request_target
 
-permissions:
-  pull-requests: write
-  contents: write
-
 jobs:
   dependabot:
-    name: Pull Request Approve and Merge
+    name: Dependabot
     uses: osinfra-io/github-misc-called-workflows/.github/workflows/dependabot.yml@v0.0.0
     secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+      dependabot_token: ${{ secrets.GITHUB_TOKEN }}
 ```
