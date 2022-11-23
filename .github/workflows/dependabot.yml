@@ -21,7 +21,7 @@ jobs:
       # Fetch Metadata from Dependabot PRs
       # https://github.com/marketplace/actions/fetch-metadata-from-dependabot-prs
 
-      - name: "Run Step: dependabot-metadata"
+      - name: Run step dependabot-metadata
         id: dependabot-metadata
         uses: dependabot/fetch-metadata@v1.3.5
         with:
@@ -30,13 +30,13 @@ jobs:
       # GitHub command line
       # https://cli.github.com
 
-      - name: "Run Step: gh pr review --approve"
+      - name: Run step gh pr review --approve
         run: gh pr review --approve "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           github-token: "${{ secrets.github_token }}"
 
-      - name: "Run Step: gh pr merge --auto --squash"
+      - name: Run step gh pr merge --auto --squash
         if: ${{ steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
         run: gh pr merge --auto --squash "$PR_URL"
         env:
