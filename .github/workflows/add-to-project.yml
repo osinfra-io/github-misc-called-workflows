@@ -26,7 +26,7 @@ jobs:
       # Add To GitHub Projects
       # https://github.com/marketplace/actions/add-to-github-projects
 
-      - name: Run Step add-to-project Action
+      - name: "Run Step: add-to-project"
         uses: actions/add-to-project@v0.4.0
         with:
           project-url: https://github.com/orgs/osinfra-io/projects/${{ inputs.project_id }}
