@@ -51,5 +51,5 @@ jobs:
     name: Dependabot
     uses: osinfra-io/github-misc-called-workflows/.github/workflows/dependabot.yml@v0.0.0
     secrets:
-      dependabot_token: ${{ secrets.GITHUB_TOKEN }}
+      pr_approve_and_merge_pat: ${{ secrets.PR_APPROVE_AND_MERGE_PAT }}
 ```
