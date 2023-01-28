@@ -13,12 +13,10 @@ on:
         description: The GitHub token with access to the project
         required: true
 
+permissions: {}
+
 jobs:
   add-to-project:
-    permissions:
-      issues: write
-      pull-requests: write
-
     name: Add To GitHub Project
     runs-on: ubuntu-latest
 
