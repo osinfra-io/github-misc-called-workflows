@@ -21,7 +21,7 @@ jobs:
         id: dependabot-metadata
         uses: dependabot/fetch-metadata@v1.3.6
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          github-token: "${{ secrets.PR_APPROVE_AND_MERGE_PAT }}"
 
       # GitHub command line
       # https://cli.github.com
@@ -30,11 +30,11 @@ jobs:
         run: gh pr review --approve "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PR_APPROVE_AND_MERGE_PAT }}
 
       - name: Run step gh pr merge
         if: ${{ steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PR_APPROVE_AND_MERGE_PAT }}
