@@ -17,14 +17,14 @@ permissions: {}
 
 jobs:
   add-to-project:
-    name: Add To GitHub Project
+    name: Add to GitHub projects
     runs-on: ubuntu-latest
 
     steps:
       # Add To GitHub Projects
       # https://github.com/marketplace/actions/add-to-github-projects
 
-      - name: Run step add-to-project
+      - name: Add to GitHub project
         uses: actions/add-to-project@v0.4.1
         with:
           project-url: https://github.com/orgs/osinfra-io/projects/${{ inputs.project_id }}
