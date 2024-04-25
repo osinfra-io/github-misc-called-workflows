@@ -1,4 +1,4 @@
-name: Dependabot
+name: Dependabot Approve and Merge
 
 on:
   workflow_call:

@@ -39,10 +39,10 @@ jobs:
      add_to_project_pat: ${{ secrets.ADD_TO_PROJECT_PAT }}
 ```
 
-### Example Dependabot Usage
+### Example Dependabot Approve and Merge Usage
 
 ```yaml
-name: Dependabot
+name: Dependabot Approve and Merge
 
 on: pull_request_target
 
