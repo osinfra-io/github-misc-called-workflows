@@ -8,3 +8,15 @@ repos:
       - id: check-yaml
       - id: end-of-file-fixer
       - id: trailing-whitespace
+      - id: check-symlinks
+
+  - repo: https://github.com/bridgecrewio/checkov.git
+    rev: 3.2.174
+    hooks:
+      - id: checkov
+        verbose: true
+        args:
+          - --skip-check
+          - "CKV_TF_1"
+          - --download-external-modules=true
+          - --quiet
