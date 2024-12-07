@@ -4,8 +4,8 @@ on:
   workflow_call:
 
     secrets:
-      pr_approve_and_merge_pat:
-        description: Branch protection with CODEOWNERS require use of a PAT with write access to the repo to approve and merge PRs
+      pr_approve_and_merge_pem:
+        description: The GitHub App PEM file
         required: true
 
 permissions: {}
@@ -17,6 +17,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Create GitHub App Token
+      # https://github.com/actions/create-github-app-token
+
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v1.11.0
+        id: app-token
+        with:
+          app-id: 1080767
+          private-key: ${{ secrets.pr_approve_and_merge_pem }}
+
       # Fetch Metadata from Dependabot PRs
       # https://github.com/marketplace/actions/fetch-metadata-from-dependabot-prs
 
@@ -24,7 +34,7 @@ jobs:
         id: dependabot-metadata
         uses: dependabot/fetch-metadata@v2.2.0
         with:
-          github-token: "${{ secrets.pr_approve_and_merge_pat }}"
+          github-token: ${{ steps.app-token.outputs.token }}
 
       # GitHub command line
       # https://cli.github.com
@@ -33,11 +43,11 @@ jobs:
         run: gh pr review --approve "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: "${{ secrets.pr_approve_and_merge_pat }}"
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Pull request merge
         if: ${{ steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: "${{ secrets.pr_approve_and_merge_pat }}"
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
