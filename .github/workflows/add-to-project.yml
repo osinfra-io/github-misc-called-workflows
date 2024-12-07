@@ -9,8 +9,8 @@ on:
         type: number
 
     secrets:
-      add_to_project_pat:
-        description: The GitHub token with access to the project
+      add_to_project_pem:
+        description: The GitHub App PEM file
         required: true
 
 permissions: {}
@@ -19,8 +19,18 @@ jobs:
   add-to-project:
     name: Add to GitHub projects
     runs-on: ubuntu-latest
-
     steps:
+
+      # Create GitHub App Token
+      # https://github.com/actions/create-github-app-token
+
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v1.11.0
+        id: app-token
+        with:
+          app-id: 1080775
+          private-key: ${{ secrets.add_to_project_pem }}
+
       # Add To GitHub Projects
       # https://github.com/marketplace/actions/add-to-github-projects
 
@@ -28,4 +38,4 @@ jobs:
         uses: actions/add-to-project@v1.0.2
         with:
           project-url: https://github.com/orgs/osinfra-io/projects/${{ inputs.project_id }}
-          github-token: ${{ secrets.add_to_project_pat }}
+          github-token: ${{ steps.app-token.outputs.token }}
