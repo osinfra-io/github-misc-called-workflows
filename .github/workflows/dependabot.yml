@@ -4,8 +4,8 @@ on:
   workflow_call:
 
     secrets:
-      pr_approve_and_merge_pat:
-        description: Branch protection with CODEOWNERS require use of a PAT with write access to the repo to approve and merge PRs
+      pr_approve_and_merge_pem:
+        description: The GitHub App PEM file
         required: true
 
 permissions: {}
@@ -24,7 +24,7 @@ jobs:
         uses: actions/create-github-app-token@v1.11.0
         id: app-token
         with:
-          app-id: 1080775
+          app-id: 1080767
           private-key: ${{ secrets.pr_approve_and_merge_pem }}
 
       # Fetch Metadata from Dependabot PRs

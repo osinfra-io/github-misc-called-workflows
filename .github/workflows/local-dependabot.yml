@@ -5,6 +5,6 @@ on: pull_request_target
 jobs:
   dependabot:
     name: Dependabot
-    uses: osinfra-io/github-misc-called-workflows/.github/workflows/dependabot.yml@token
+    uses: osinfra-io/github-misc-called-workflows/.github/workflows/dependabot.yml@main
     secrets:
       pr_approve_and_merge_pem: ${{ secrets.PR_APPROVE_AND_MERGE_PEM }}
