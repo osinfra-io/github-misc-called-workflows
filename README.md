@@ -36,7 +36,7 @@ jobs:
     with:
      project_id: 1
     secrets:
-     add_to_project_pat: ${{ secrets.ADD_TO_PROJECT_PEM }}
+     add_to_project_pem: ${{ secrets.ADD_TO_PROJECT_PEM }}
 ```
 
 ### Example Dependabot Approve and Merge Usage
@@ -51,5 +51,5 @@ jobs:
     name: Dependabot
     uses: osinfra-io/github-misc-called-workflows/.github/workflows/dependabot.yml@v0.0.0
     secrets:
-      pr_approve_and_merge_pat: ${{ secrets.PR_APPROVE_AND_MERGE_PEM }}
+      pr_approve_and_merge_pem: ${{ secrets.PR_APPROVE_AND_MERGE_PEM }}
 ```
