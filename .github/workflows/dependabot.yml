@@ -21,7 +21,7 @@ jobs:
       # https://github.com/actions/create-github-app-token
 
       - name: Create GitHub App Token
-        uses: actions/create-github-app-token@v1.11.1
+        uses: actions/create-github-app-token@v1.11.2
         id: app-token
         with:
           app-id: 1080767
