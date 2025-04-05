@@ -1,4 +1,4 @@
-name: Add To GitHub Project
+name: Add To GitHub Project Called Workflow
 
 on:
   workflow_call:
@@ -20,6 +20,10 @@ jobs:
     name: Add to GitHub projects
     runs-on: ubuntu-latest
     steps:
+      # Uncomment to enable GitHub Security Lab Action Permissions Monitor
+
+      # - name: Actions permissions monitor
+      #   uses: GitHubSecurityLab/actions-permissions/monitor@v1.0.0
 
       # Create GitHub App Token
       # https://github.com/actions/create-github-app-token
