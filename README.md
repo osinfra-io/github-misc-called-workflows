@@ -14,42 +14,6 @@ Rather than copying and pasting from one workflow to another, you can make workf
 ### Workflows
 
 - [add-to-project.yml](.github/workflows/add-to-project.yml)
+- [build-and-push](.github/workflows/build-and-push.yml)
 - [dependabot.yml](.github/workflows/dependabot.yml)
-
-### Example Add to Project Usage
-
-```yaml
-name: Add To GitHub Projects
-
-on:
-  issues:
-    types:
-      - opened
-  pull_request:
-    types:
-      - opened
-
-jobs:
-  add-to-osinfra-project:
-    name: Open Source Infrastructure (as Code)
-    uses: osinfra-io/github-misc-called-workflows/.github/workflows/add-to-project.yml@v0.0.0
-    with:
-     project_id: 1
-    secrets:
-     add_to_project_pem: ${{ secrets.ADD_TO_PROJECT_PEM }}
-```
-
-### Example Dependabot Approve and Merge Usage
-
-```yaml
-name: Dependabot Approve and Merge
-
-on: pull_request_target
-
-jobs:
-  dependabot:
-    name: Dependabot
-    uses: osinfra-io/github-misc-called-workflows/.github/workflows/dependabot.yml@v0.0.0
-    secrets:
-      pr_approve_and_merge_pem: ${{ secrets.PR_APPROVE_AND_MERGE_PEM }}
-```
+- [nuclei.yml](.github/workflows/nuclei.yml)
