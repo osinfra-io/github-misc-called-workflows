@@ -12,6 +12,6 @@ permissions:
 jobs:
   release:
     name: Release
-    uses: osinfra-io/github-misc-called-workflows/.github/workflows/release.yml@main
+    uses: osinfra-io/github-misc-called-workflows/.github/workflows/release.yml@add
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
