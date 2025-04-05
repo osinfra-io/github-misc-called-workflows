@@ -1,0 +1,67 @@
+name: Nuclei Vulnerability Scan Called Workflow
+
+on:
+  workflow_call:
+    inputs:
+      urls_file:
+        required: true
+        type: string
+      cache_key:
+        required: true
+        type: string
+
+jobs:
+  nuclei-scan:
+    name: Scan
+    runs-on: ubuntu-latest
+    steps:
+      # Uncomment to enable GitHub Security Lab Action Permissions Monitor
+
+      # - name: Actions permissions monitor
+      #   uses: GitHubSecurityLab/actions-permissions/monitor@v1.0.0
+
+      # GitHub Checkout
+      # https://github.com/marketplace/actions/checkout
+
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      # GitHub Cache
+      # https://github.com/actions/cache
+
+      - name: Cache Nuclei templates
+        uses: actions/cache@v4.2.3
+        with:
+          path: ~/nuclei-templates
+          key: ${{ inputs.cache_key }}
+          restore-keys: |
+            ${{ inputs.cache_key }}
+
+      # Nuclei
+      # https://github.com/projectdiscovery/nuclei-action
+
+      - name: Nuclei vulnerability scan
+        id: nuclei_scan
+        uses: projectdiscovery/nuclei-action@v2.0.1
+        with:
+          urls: ${{ inputs.urls_file }}
+
+      # GitHub Upload Artifact
+      # https://github.com/actions/upload-artifact
+
+      - name: GitHub workflow artifacts
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: nuclei-artifacts
+          path: |
+            nuclei.log
+            nuclei.sarif
+
+      # GitHub CodeQL upload SARIF
+      # https://github.com/github/codeql-action
+
+      - name: GitHub security dashboard alerts update
+        uses: github/codeql-action/upload-sarif@v3.28.13
+        with:
+          sarif_file: nuclei.sarif
+          category: Nuclei

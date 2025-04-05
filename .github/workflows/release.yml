@@ -1,0 +1,28 @@
+name: Release Called Workflow
+
+on:
+  workflow_call:
+    secrets:
+      token:
+        description: The GitHub token
+        required: true
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      # Uncomment to enable GitHub Security Lab Action Permissions Monitor
+
+      # - name: Actions permissions monitor
+      #   uses: GitHubSecurityLab/actions-permissions/monitor@v1.0.0
+
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release create $TAG \
+            --repo "${{ github.repository }}" \
+            --title "${TAG#v}" \
+            --generate-notes
