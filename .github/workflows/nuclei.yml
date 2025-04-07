@@ -39,7 +39,7 @@ jobs:
         id: nuclei_scan
         uses: projectdiscovery/nuclei-action@v2.0.1
         with:
-          flags: -severity medium,high,critical
+          flags: -severity low,medium,high,critical
           urls: ${{ inputs.urls_file }}
           user-agent: "User-Agent:'Nuclei - Vulnerability Scan (osinfra.io)'"
 
