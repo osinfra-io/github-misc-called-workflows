@@ -15,11 +15,6 @@ jobs:
     name: Scan
     runs-on: ubuntu-latest
     steps:
-      # Uncomment to enable GitHub Security Lab Action Permissions Monitor
-
-      # - name: Actions permissions monitor
-      #   uses: GitHubSecurityLab/actions-permissions/monitor@v1.0.0
-
       # GitHub Checkout
       # https://github.com/marketplace/actions/checkout
 
@@ -44,7 +39,9 @@ jobs:
         id: nuclei_scan
         uses: projectdiscovery/nuclei-action@v2.0.1
         with:
+          flags: -severity medium,high,critical
           urls: ${{ inputs.urls_file }}
+          user-agent: "User-Agent:'Nuclei - Vulnerability Scan (osinfra.io)'"
 
       # GitHub Upload Artifact
       # https://github.com/actions/upload-artifact
@@ -62,6 +59,7 @@ jobs:
 
       - name: GitHub security dashboard alerts update
         uses: github/codeql-action/upload-sarif@v3.28.13
+        if: steps.nuclei_scan.outputs.sarif_exists == 'true'
         with:
           sarif_file: nuclei.sarif
           category: Nuclei
