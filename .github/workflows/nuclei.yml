@@ -43,6 +43,9 @@ jobs:
           urls: ${{ inputs.urls_file }}
           user-agent: "User-Agent:'Nuclei - Vulnerability Scan (osinfra.io)'"
 
+      - name: Debug sarif_exists
+        run: 'echo "sarif_exists: ${{ steps.nuclei_scan.outputs.sarif_exists }}"'
+
       # GitHub Upload Artifact
       # https://github.com/actions/upload-artifact
 
