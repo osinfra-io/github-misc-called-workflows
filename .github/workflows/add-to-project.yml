@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Create GitHub App Token
-      # https://github.com/actions/create-github-app-token
+      # https://github.com/marketplace/actions/create-github-app-token
 
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@v2.0.6
@@ -34,7 +34,7 @@ jobs:
       # https://github.com/marketplace/actions/add-to-github-projects
 
       - name: Add to GitHub project
-        uses: actions/add-to-project@v1.0.2
+        uses: actions/add-to-project@244f685bbc3b7adfa8466e08b698b5577571133e
         with:
           project-url: https://github.com/orgs/osinfra-io/projects/${{ inputs.project_id }}
           github-token: ${{ steps.app-token.outputs.token }}

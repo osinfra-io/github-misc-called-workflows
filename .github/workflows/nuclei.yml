@@ -19,13 +19,13 @@ jobs:
       # https://github.com/marketplace/actions/checkout
 
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       # GitHub Cache
       # https://github.com/actions/cache
 
       - name: Cache Nuclei templates
-        uses: actions/cache@v4.2.3
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
         with:
           path: ~/nuclei-templates
           key: ${{ inputs.cache_key }}
@@ -37,20 +37,17 @@ jobs:
 
       - name: Nuclei vulnerability scan
         id: nuclei_scan
-        uses: projectdiscovery/nuclei-action@v2.0.1
+        uses: projectdiscovery/nuclei-action@e62115193e68fa4596eb7956acff233fa7160029
         with:
           flags: -severity low,medium,high,critical
           urls: ${{ inputs.urls_file }}
           user-agent: "User-Agent:'Nuclei - Vulnerability Scan (osinfra.io)'"
 
-      - name: Debug sarif_exists
-        run: 'echo "sarif_exists: ${{ steps.nuclei_scan.outputs.sarif_exists }}"'
-
       # GitHub Upload Artifact
       # https://github.com/actions/upload-artifact
 
       - name: GitHub workflow artifacts
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: nuclei-artifacts
           path: |
@@ -61,8 +58,8 @@ jobs:
       # https://github.com/github/codeql-action
 
       - name: GitHub security dashboard alerts update
-        if: steps.nuclei_scan.outputs.sarif_exists == 'true'
         uses: github/codeql-action/upload-sarif@v3.29.2
+        if: success() && steps.nuclei_scan.outputs.sarif_exists == 'true'
         with:
           sarif_file: nuclei.sarif
           category: Nuclei
