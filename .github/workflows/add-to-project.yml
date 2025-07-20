@@ -24,7 +24,7 @@ jobs:
       # https://github.com/marketplace/actions/create-github-app-token
 
       - name: Create GitHub App Token
-        uses: actions/create-github-app-token@v2.0.6
+        uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e
         id: app-token
         with:
           app-id: 1080775

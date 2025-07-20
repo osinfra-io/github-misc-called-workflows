@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       # GitHub Cache
-      # https://github.com/actions/cache
+      # https://github.com/marketplace/actions/cache
 
       - name: Cache Nuclei templates
         uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
@@ -33,7 +33,7 @@ jobs:
             ${{ inputs.cache_key }}
 
       # Nuclei
-      # https://github.com/projectdiscovery/nuclei-action
+      # https://github.com/marketplace/actions/nuclei-vulnerability-scan
 
       - name: Nuclei vulnerability scan
         id: nuclei_scan
@@ -58,7 +58,7 @@ jobs:
       # https://github.com/github/codeql-action
 
       - name: GitHub security dashboard alerts update
-        uses: github/codeql-action/upload-sarif@v3.29.2
+        uses: github/codeql-action/upload-sarif@181d5eefc20863364f96762470ba6f862bdef56b
         if: success() && steps.nuclei_scan.outputs.sarif_exists == 'true'
         with:
           sarif_file: nuclei.sarif
