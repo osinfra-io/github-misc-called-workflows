@@ -58,7 +58,7 @@ jobs:
       # https://github.com/github/codeql-action
 
       - name: GitHub security dashboard alerts update
-        uses: github/codeql-action/upload-sarif@d6bbdef45e766d081b84a2def353b0055f728d3e
+        uses: github/codeql-action/upload-sarif@4e828ff8d448a8a6e532957b1811f387a63867e8
         if: success() && steps.nuclei_scan.outputs.sarif_exists == 'true'
         with:
           sarif_file: nuclei.sarif
