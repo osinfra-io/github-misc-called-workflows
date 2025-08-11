@@ -10,13 +10,16 @@ repos:
       - id: trailing-whitespace
       - id: check-symlinks
 
-  - repo: https://github.com/bridgecrewio/checkov.git
-    rev: 3.2.451
+  - repo: https://github.com/osinfra-io/pre-commit-hooks
+    rev: v0.1.1
     hooks:
-      - id: checkov
+      - id: tofu-fmt
         verbose: true
-        args:
-          - --skip-check
-          - "CKV_TF_1"
-          - --download-external-modules=true
-          - --quiet
+
+      # To speed up local validation:
+      # mkdir -p $HOME/.opentofu.d/plugin-cache
+      # Add the following to your ~/.zshrc:
+      # export TF_PLUGIN_CACHE_DIR=$HOME/.opentofu.d/plugin-cache
+
+      - id: tofu-validate
+        verbose: true
