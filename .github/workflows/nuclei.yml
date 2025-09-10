@@ -37,7 +37,7 @@ jobs:
 
       - name: Nuclei vulnerability scan
         id: nuclei_scan
-        uses: projectdiscovery/nuclei-action@5c9fafb0001513b05e7ced61553203cef8704470
+        uses: projectdiscovery/nuclei-action@128f7284c2a836b485e292b9080dbc6175103758
         with:
           flags: -severity low,medium,high,critical
           urls: ${{ inputs.urls_file }}
