@@ -1,6 +1,8 @@
 name: Dependabot Approve and Merge Called Workflow
 
 on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
   workflow_call:
     secrets:
       pr_approve_and_merge_pem:

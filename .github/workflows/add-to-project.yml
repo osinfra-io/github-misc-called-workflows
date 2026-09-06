@@ -1,6 +1,12 @@
 name: Add To GitHub Project Called Workflow
 
 on:
+  issues:
+    types:
+      - opened
+  pull_request:
+    types:
+      - opened
   workflow_call:
     inputs:
       project_id:

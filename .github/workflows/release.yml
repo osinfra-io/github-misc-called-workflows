@@ -1,6 +1,9 @@
 name: Release Called Workflow
 
 on:
+  push:
+    tags:
+      - "v*"
   workflow_call:
     secrets:
       token:
